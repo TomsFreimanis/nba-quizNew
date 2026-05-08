@@ -264,3 +264,74 @@
 .lb-tip { font-size:.8rem; color:#555; margin:0; }
 
 .lb-claim-btn { width:100%; justify-content:center; font-size:1rem; padding:14px; }
+
+/* ── Mobile bottom nav ───────────────────────────────── */
+.mobile-nav { display: none; }
+
+@media (max-width: 640px) {
+  /* Show bottom nav */
+  .mobile-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: rgba(8,8,20,0.98);
+    border-top: 1px solid rgba(230,57,70,0.2);
+    backdrop-filter: blur(12px);
+    padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+  }
+
+  .mn-btn {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none;
+    color: rgba(255,255,255,0.35);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 0;
+    cursor: pointer; transition: color 0.15s;
+  }
+  .mn-btn.mn-active { color: #e63946; }
+  .mn-btn-play { color: rgba(255,255,255,0.5); }
+
+  .mn-icon { font-size: 20px; line-height: 1; }
+  .mn-lbl  { font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .mn-avatar {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg,#9B5DE5,#7B3DC5);
+    color: #fff; font-size: 11px; font-weight: 900;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  /* Push content above bottom nav */
+  .app-main { padding-bottom: 80px; }
+  .app-footer { display: none; }
+
+  /* Shrink header on mobile */
+  .header-content { height: 52px; padding: 0; }
+  .app-header { padding: 0 0.75rem; }
+  .logo-text { font-size: 1.1rem; }
+  .logo-ball { font-size: 1.4rem; }
+  .header-nav { display: none; }
+  .header-center { display: none; }
+  .coin-amount { font-size: 0.78rem; }
+
+  /* Tighten main padding */
+  .app-main { padding: 0.75rem 0.75rem 80px; }
+
+  /* Cards */
+  .card { padding: 1rem 1rem; border-radius: 12px; }
+
+  /* Toast */
+  .toast-stack { bottom: 80px; right: 0.75rem; left: 0.75rem; }
+  .ach-toast { min-width: unset; }
+
+  /* Login bonus modal */
+  .lb-modal { padding: 1.5rem 1.25rem; }
+  .lb-coin-amt { font-size: 2.2rem; }
+  .lb-week { gap: 0.25rem; }
+  .lb-day { min-width: 28px; padding: 5px 4px; }
+}

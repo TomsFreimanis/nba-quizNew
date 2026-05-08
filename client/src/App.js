@@ -482,6 +482,25 @@ export default function App() {
         <p>NBA Advanced Quiz &copy; 2026 &mdash; Collect · Achieve · Dominate</p>
       </footer>
 
+      <nav className="mobile-nav">
+        <button className={`mn-btn ${screen==='start'?'mn-active':''}`} onClick={() => nav('start')}>
+          <span className="mn-icon">🏠</span><span className="mn-lbl">Home</span>
+        </button>
+        <button className={`mn-btn ${screen==='ranked-leaderboard'||screen==='duel'?'mn-active':''}`} onClick={() => nav('ranked-leaderboard')}>
+          <span className="mn-icon">⚔️</span><span className="mn-lbl">Ranked</span>
+        </button>
+        <button className={`mn-btn mn-btn-play`} onClick={() => nav('duel')}>
+          <span className="mn-icon">🎮</span><span className="mn-lbl">Duel</span>
+        </button>
+        <button className={`mn-btn ${screen==='shop'?'mn-active':''}`} onClick={() => nav('shop')}>
+          <span className="mn-icon">🛒</span><span className="mn-lbl">Shop</span>
+        </button>
+        <button className={`mn-btn ${screen==='profile'?'mn-active':''}`} onClick={() => nav('profile')}>
+          <span className="mn-icon"><span className="mn-avatar">{authUser ? authUser.charAt(0).toUpperCase() : '?'}</span></span>
+          <span className="mn-lbl">Profile</span>
+        </button>
+      </nav>
+
       <AchToast toasts={toasts} onDismiss={dismissToast} />
       {loginBonus && <LoginBonusModal bonus={loginBonus} onClaim={() => setLoginBonus(null)} />}
     </div>

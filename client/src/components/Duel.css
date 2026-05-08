@@ -450,8 +450,39 @@
 
 @media (max-width: 600px) {
   .duel-matchup { gap: 16px; }
-  .duel-prizes  { flex-direction: column; align-items: center; }
-  .dp-item      { width: 200px; }
-  .duel-scorebar { padding: 10px 12px; }
+  .duel-prizes  { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .dp-item      { padding: 10px 12px; flex: 1; min-width: 80px; }
+  .dp-icon      { font-size: 18px; }
+  .dp-coins     { font-size: 12px; }
+  .dp-label     { font-size: 9px; }
+  .duel-scorebar { padding: 8px 10px; gap: 6px; }
   .dsb-name { display: none; }
+  .dsb-avatar { width: 28px; height: 28px; font-size: 11px; }
+  .dsb-score  { font-size: 18px; }
+  .dsb-mid    { flex: 0 0 90px; }
+
+  /* Idle hero */
+  .duel-hero { padding: 0 4px; }
+  .duel-vs-icon { font-size: 40px; }
+  .duel-title   { font-size: 26px; }
+  .duel-hero-top { gap: 10px; }
+
+  /* Question card */
+  .duel-q-card  { padding: 16px; border-radius: 12px; }
+  .duel-q-text  { font-size: 15px; }
+  .duel-opt     { padding: 11px 12px; font-size: 14px; gap: 10px; }
+
+  /* Game over */
+  .duel-gameover { padding: 0 4px; }
+  .drb-text { font-size: 18px; }
+  .dmr-change { font-size: 24px; }
+
+  /* Round result */
+  .duel-round-result { padding: 16px; }
+  .drr-players { gap: 10px; }
+
+  /* Rank up overlay */
+  .dru-content { padding: 28px 32px; }
+  .dru-icon { font-size: 48px; }
+  .dru-text { font-size: 22px; }
 }

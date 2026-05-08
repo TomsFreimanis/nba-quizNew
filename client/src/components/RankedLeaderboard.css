@@ -129,8 +129,14 @@
 .rl-streak { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); }
 
 @media (max-width: 600px) {
-  .rl-table-header { grid-template-columns: 36px 1fr 65px 70px; }
+  .rl-root { gap: 0.85rem; }
+  .rl-table-header { grid-template-columns: 36px 1fr 60px 65px; padding: 6px 10px; }
   .rl-table-header .rlt-wr,  .rl-table-header .rlt-streak { display: none; }
-  .rl-row          { grid-template-columns: 36px 1fr 65px 70px; }
+  .rl-row          { grid-template-columns: 36px 1fr 60px 65px; padding: 8px 10px; }
   .rl-row .rl-wr,  .rl-row .rl-streak { display: none; }
+  .rl-name { font-size: 11px; max-width: 90px; }
+  .rl-title { font-size: 20px; }
+  .rl-header { gap: 0.5rem; }
+  .rl-myrank { padding: 10px 14px; gap: 8px; }
+  .rlm-rank  { font-size: 18px; }
 }
