@@ -1,0 +1,585 @@
+.collection {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Header */
+.coll-eyebrow { font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#9B5DE5;margin-bottom:.4rem; }
+.coll-title   { font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:900;margin-bottom:.3rem; }
+.coll-subtitle{ color:#888;font-size:.95rem; }
+
+.coll-header  { display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.25rem; }
+
+.coll-stats   { display:flex;align-items:center;gap:.75rem;flex-wrap:wrap; }
+.cs2-item     { display:flex;flex-direction:column;align-items:center;gap:3px; }
+.cs2-val      { font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;color:#fff; }
+.cs2-lbl      { font-size:.65rem;color:#555;text-transform:uppercase;letter-spacing:1px; }
+.cs2-div      { width:1px;height:28px;background:rgba(255,255,255,.07); }
+
+/* Tabs */
+.coll-tabs { display:flex;gap:.5rem;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:.5rem; }
+.ctab { background:transparent;border:none;color:#666;padding:9px 18px;border-radius:8px 8px 0 0;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.5px;transition:all .2s; }
+.ctab:hover  { color:#aaa;background:rgba(255,255,255,.04); }
+.ctab.active { color:#fff;background:rgba(155,93,229,.15);border-bottom:2px solid #9B5DE5; }
+
+/* ── Pack Store ─────────────────────────── */
+.ps-top-row { display:flex;align-items:center;gap:.85rem;flex-wrap:wrap;margin-bottom:.25rem; }
+.ps-balance { display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.12);border-radius:10px;flex:1; }
+.ps-bal-icon { font-size:1.2rem; }
+.ps-bal-amt  { font-family:'Orbitron',sans-serif;font-size:.95rem;font-weight:700;color:#FFD700; }
+
+.ps-pity {
+  display:flex;align-items:center;gap:.5rem;
+  padding:.6rem .9rem;background:rgba(155,93,229,.07);
+  border:1px solid rgba(155,93,229,.2);border-radius:10px;
+}
+.ps-pity.pity-close { background:rgba(255,215,0,.1);border-color:rgba(255,215,0,.35); }
+.pity-icon  { font-size:.85rem; }
+.pity-label { font-family:'Orbitron',sans-serif;font-size:.65rem;font-weight:700;color:#9B5DE5;white-space:nowrap; }
+.ps-pity.pity-close .pity-label { color:#FFD700; }
+.pity-bar-wrap {
+  width:60px;height:6px;background:rgba(255,255,255,.08);
+  border-radius:3px;overflow:hidden;
+}
+.pity-bar-fill {
+  height:100%;border-radius:3px;
+  background:linear-gradient(90deg,#9B5DE5,#7B3FC4);
+  transition:width .4s ease;
+}
+.ps-pity.pity-close .pity-bar-fill { background:linear-gradient(90deg,#FFD700,#f4a21c); }
+
+.pack-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem; }
+
+.pack-card {
+  border:1px solid;
+  border-radius:16px;
+  padding:1.5rem;
+  display:flex;flex-direction:column;gap:.85rem;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.pack-card:not(.pack-broke):hover { transform:translateY(-4px); }
+.pack-broke { opacity:.55; }
+
+.pack-top-glow { position:absolute;top:0;left:0;right:0;height:2px;opacity:.6; }
+
+.pack-tag {
+  display:inline-block;border:1px solid;border-radius:20px;padding:2px 10px;
+  font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  align-self:flex-start;
+}
+
+.pack-icon   { font-size:3rem;text-align:center;filter:drop-shadow(0 0 12px rgba(255,255,255,.2)); }
+.pack-name   { font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:700;color:#fff;text-align:center;letter-spacing:.5px; }
+.pack-desc   { font-size:.85rem;color:#888;line-height:1.5;text-align:center; }
+
+.pack-odds   { background:rgba(0,0,0,.25);border-radius:8px;padding:.75rem; }
+.po-title    { font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:#555;display:block;margin-bottom:.4rem; }
+.po-rates    { display:flex;flex-wrap:wrap;gap:.4rem; }
+.po-rate     { font-size:.75rem;font-weight:700; }
+.po-guaranteed { margin-top:.4rem;font-size:.75rem;color:#4cc977;font-weight:700; }
+
+.pack-footer { display:flex;align-items:center;justify-content:space-between;gap:.5rem; }
+.pack-cards-count { font-size:.8rem;color:#666; }
+
+.pack-buy-btn {
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);
+  color:#888;padding:8px 16px;border-radius:8px;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-size:.95rem;font-weight:700;
+  transition:all .2s;
+}
+.pack-buy-btn.can-afford:hover { background:rgba(255,255,255,.1);transform:translateY(-1px); }
+.pack-buy-btn:disabled { cursor:not-allowed; }
+
+/* ═══════════════════════════════════════════
+   PLAYER CARD — premium trading card design
+   ═══════════════════════════════════════════ */
+
+.player-card {
+  position: relative;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.pc-sm { width: 118px; }
+.pc-md { width: 158px; }
+.pc-lg { width: 210px; }
+
+.player-card:hover { transform: translateY(-6px) scale(1.03); }
+.pc-unowned { filter: grayscale(0.75) brightness(0.5); }
+.pc-unowned:hover { filter: grayscale(0.5) brightness(0.65); }
+
+/* ── Holographic animated border (legendary only) ── */
+.pc-holo-border {
+  position: absolute;
+  inset: -2px;
+  border-radius: 16px;
+  background: linear-gradient(60deg,
+    #ff0000, #ff7700, #ffff00, #00ff99, #00ccff, #8833ff, #ff0099, #ff0000);
+  background-size: 300% 300%;
+  animation: holoBorder 3s linear infinite;
+  z-index: 0;
+}
+@keyframes holoBorder {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
+}
+
+/* ── Inner card (sits on top of holo border) ── */
+.pc-inner {
+  position: relative;
+  z-index: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid var(--rc);
+  box-shadow: var(--glow), inset 0 0 0 1px rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, var(--c1) 0%, var(--c2) 100%);
+  height: 100%;
+}
+
+/* legendary gets no separate border since holo-border handles it */
+.pc-legendary .pc-inner { border-color: transparent; margin: 2px; border-radius: 10px; }
+
+/* Epic subtle shimmer border */
+.pc-epic .pc-inner { border-color: #9B5DE5; }
+
+/* ── Photo area ── */
+.pc-photo-wrap {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(0,0,0,0.4);
+}
+
+.pc-sm .pc-photo-wrap  { height: 88px; }
+.pc-md .pc-photo-wrap  { height: 118px; }
+.pc-lg .pc-photo-wrap  { height: 158px; }
+
+.pc-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* Gradient fade from photo into info section */
+.pc-photo-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 35%,
+    rgba(0,0,0,0.15) 60%,
+    rgba(0,0,0,0.7) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── Fallback: no photo — vintage jersey card ── */
+.pc-no-photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.07) 0%, transparent 65%),
+    linear-gradient(160deg, var(--c1, #111) 0%, var(--c2, #333) 100%);
+  gap: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle texture lines */
+.pc-no-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 8px,
+    rgba(255,255,255,0.025) 8px,
+    rgba(255,255,255,0.025) 9px
+  );
+  pointer-events: none;
+}
+
+.pc-jersey-num {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  color: rgba(255,255,255,0.92);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  text-shadow:
+    0 0 30px rgba(255,255,255,0.3),
+    0 3px 14px rgba(0,0,0,0.7);
+}
+.pc-sm .pc-jersey-num { font-size: 2rem; }
+.pc-md .pc-jersey-num { font-size: 2.8rem; }
+.pc-lg .pc-jersey-num { font-size: 3.6rem; }
+
+.pc-initials {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+  background: rgba(0,0,0,0.3);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+/* ── Badges overlaid on photo ── */
+.pc-badge-pos, .pc-badge-season {
+  position: absolute;
+  top: 6px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.48rem;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+.pc-badge-pos    { left: 6px; background: rgba(0,0,0,.55); color: rgba(255,255,255,.85); }
+.pc-badge-season { right: 6px; background: rgba(0,0,0,.4); color: rgba(255,255,255,.5); }
+
+/* ── Info section ── */
+.pc-info {
+  padding: 0.45rem 0.6rem 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.8));
+  flex: 1;
+}
+
+.pc-name {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  text-shadow: 0 1px 4px rgba(0,0,0,.8);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc-sm .pc-name { font-size: 0.48rem; }
+.pc-md .pc-name { font-size: 0.62rem; }
+.pc-lg .pc-name { font-size: 0.8rem; }
+
+.pc-team {
+  color: rgba(255,255,255,.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pc-sm .pc-team { font-size: 0.42rem; }
+.pc-md .pc-team { font-size: 0.55rem; }
+.pc-lg .pc-team { font-size: 0.68rem; }
+
+.pc-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 2px;
+  margin-top: 2px;
+  padding: 4px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.pc-stat  { display: flex; flex-direction: column; align-items: center; flex: 1; }
+.pcs-val  { font-family: 'Orbitron', sans-serif; font-weight: 700; color: #fff; line-height: 1; }
+.pcs-lbl  { color: rgba(255,255,255,.45); line-height: 1; }
+
+.pc-sm .pcs-val { font-size: 0.5rem; }
+.pc-sm .pcs-lbl { font-size: 0.4rem; }
+.pc-md .pcs-val { font-size: 0.62rem; }
+.pc-md .pcs-lbl { font-size: 0.48rem; }
+.pc-lg .pcs-val { font-size: 0.8rem; }
+.pc-lg .pcs-lbl { font-size: 0.58rem; }
+
+.pc-special {
+  color: rgba(255,255,255,.38);
+  line-height: 1.3;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.pc-md .pc-special { font-size: 0.46rem; }
+.pc-lg .pc-special { font-size: 0.55rem; }
+
+.pc-rarity-label {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-align: right;
+  letter-spacing: 0.3px;
+  margin-top: auto;
+}
+.pc-sm .pc-rarity-label { font-size: 0.44rem; }
+.pc-md .pc-rarity-label { font-size: 0.54rem; }
+.pc-lg .pc-rarity-label { font-size: 0.65rem; }
+
+/* ── Shine overlay ── */
+.pc-shine {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.12), transparent 65%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+.player-card:hover .pc-shine { opacity: 1; }
+
+/* ── Legendary holographic sheen ── */
+.pc-holo-sheen {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,100,100,0.04) 15%,
+    rgba(255,215,0,0.08) 30%,
+    rgba(100,255,200,0.04) 45%,
+    rgba(100,180,255,0.08) 60%,
+    rgba(180,100,255,0.04) 75%,
+    transparent 100%
+  );
+  background-size: 200% 200%;
+  animation: holoSheen 4s ease-in-out infinite;
+}
+@keyframes holoSheen {
+  0%   { background-position: 0% 0%; opacity: 0.6; }
+  50%  { background-position: 100% 100%; opacity: 1; }
+  100% { background-position: 0% 0%; opacity: 0.6; }
+}
+
+/* ── Copy / lock badges ── */
+.pc-copies {
+  position: absolute; top: -6px; right: -6px; z-index: 10;
+  background: rgba(0,0,0,.85); color: #ffd700;
+  font-family: 'Orbitron', sans-serif; font-size: .6rem; font-weight: 700;
+  padding: 2px 6px; border-radius: 10px;
+  border: 1px solid rgba(255,215,0,.4);
+}
+.pc-locked {
+  position: absolute; top: -4px; right: -4px; z-index: 10;
+  font-size: .9rem; opacity: .55;
+}
+
+/* ── Pack Opening overlay ───────────────── */
+.pack-opening-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:500;
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+.pack-opening {
+  max-width:780px;width:92%;
+  display:flex;flex-direction:column;align-items:center;gap:1.75rem;
+  padding:2rem;
+}
+
+.po-header { text-align:center; }
+.po-pack-icon { font-size:2.5rem;display:block;margin-bottom:.5rem; }
+.po-header h2 { font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900; }
+.po-header p  { color:#888;margin-top:.3rem; }
+
+.po-cards { display:flex;justify-content:center;gap:1rem;flex-wrap:wrap; }
+
+.po-card-wrap {
+  perspective: 1000px;
+  width: 130px; height: 190px;
+  cursor: pointer;
+}
+
+.po-card-inner {
+  width:100%;height:100%;
+  position:relative;transform-style:preserve-3d;
+  transition:transform .65s cubic-bezier(.4,0,.2,1);
+}
+
+.po-card-wrap.revealed .po-card-inner { transform:rotateY(180deg); }
+
+.po-card-back,.po-card-front {
+  position:absolute;inset:0;
+  backface-visibility:hidden;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.po-card-back {
+  background:linear-gradient(135deg,#1a1a3a,#0a0a1a);
+  border:1.5px solid rgba(155,93,229,.4);
+  flex-direction:column;gap:.4rem;
+}
+.pcb-logo { font-size:2.5rem;filter:drop-shadow(0 0 12px rgba(155,93,229,.5)); }
+.pcb-text { font-family:'Orbitron',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:2px;color:rgba(155,93,229,.7); }
+
+.po-card-front {
+  transform:rotateY(180deg);
+  box-shadow:var(--glow);
+  overflow:hidden;
+}
+
+.po-actions { display:flex;flex-direction:column;align-items:center;gap:1rem; }
+
+.po-summary { display:flex;gap:1rem;flex-wrap:wrap;justify-content:center; }
+.po-summary-badge { font-family:'Orbitron',sans-serif;font-size:.85rem;font-weight:700; }
+
+/* Card detail modal */
+.card-detail-overlay {
+  position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:400;
+  display:flex;align-items:center;justify-content:center;
+  animation:fadeIn .2s ease;
+}
+.card-detail-modal {
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1.5rem;
+}
+.cdm-close {
+  position:absolute;top:-8px;right:-8px;background:#333;border:1px solid #555;color:#aaa;
+  width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:.9rem;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.cdm-close:hover { background:#555;color:#fff; }
+.cdm-info .cdm-copies { font-size:.9rem;color:#888;text-align:center; }
+
+/* My Cards */
+.empty-coll { text-align:center;padding:3rem;display:flex;flex-direction:column;align-items:center;gap:1rem;color:#666; }
+.empty-coll span { font-size:3rem; }
+
+.filter-row { display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem; }
+.filter-btn {
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);color:#888;
+  padding:7px 16px;border-radius:8px;cursor:pointer;
+  font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:600;transition:all .2s;
+}
+.filter-btn:hover  { border-color:#9B5DE5;color:#ccc; }
+.filter-btn.active { border-color:currentColor;background:rgba(155,93,229,.08); }
+
+.cards-grid { display:flex;flex-wrap:wrap;gap:1.1rem;justify-content:flex-start; }
+
+.coll-actions { display:flex;justify-content:center;padding-bottom:1.5rem; }
+
+/* ── Forge screen ── */
+.forge-screen {
+  display: flex; flex-direction: column; gap: 2rem;
+}
+
+.forge-section {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+
+.forge-section-title {
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-size: .95rem; letter-spacing: 1px; color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding-bottom: .6rem;
+}
+
+.forge-desc {
+  font-size: .8rem; color: #666; margin: 0; line-height: 1.5;
+}
+
+/* Card + dust button stacked */
+.forge-card-wrap {
+  display: flex; flex-direction: column; gap: .5rem;
+  align-items: center;
+}
+
+.forge-dust-btn {
+  width: 100%; padding: 7px 6px;
+  background: rgba(160,224,255,.08);
+  border: 1px solid rgba(160,224,255,.2);
+  border-radius: 8px; cursor: pointer;
+  font-family: 'Orbitron', sans-serif; font-size: .6rem;
+  font-weight: 700; color: #888; line-height: 1.5;
+  transition: all .18s; text-align: center;
+}
+.forge-dust-btn:hover {
+  background: rgba(160,224,255,.15);
+  border-color: rgba(160,224,255,.5); color: #ccc;
+}
+
+.forge-empty {
+  display: flex; flex-direction: column; align-items: center;
+  gap: .75rem; padding: 2rem; color: #444;
+  font-size: .85rem; text-align: center;
+  width: 100%;
+}
+.forge-empty span { font-size: 2.5rem; }
+
+/* Craft cards grid */
+.forge-craft-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+}
+
+.forge-craft-card {
+  display: flex; flex-direction: column; gap: .6rem;
+  padding: 1.1rem .9rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px; text-align: center;
+  transition: border-color .2s, background .2s;
+}
+
+.forge-craft-card.can-craft {
+  background: rgba(255,255,255,.05);
+}
+
+.fcc-rarity {
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-size: .8rem; letter-spacing: 1px;
+}
+
+.fcc-cost {
+  font-size: .85rem; color: #a0e0ff; font-weight: 700;
+}
+
+.fcc-pool {
+  font-size: .65rem; color: #555;
+}
+
+.forge-craft-btn {
+  margin-top: .25rem;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px; padding: 7px 0; cursor: pointer;
+  font-family: 'Orbitron', sans-serif; font-size: .65rem;
+  font-weight: 900; color: #555;
+  transition: all .18s;
+}
+.forge-craft-btn:not(:disabled):hover {
+  background: rgba(255,255,255,.08); color: #fff;
+}
+.forge-craft-btn:disabled { cursor: not-allowed; }
+
+@media(max-width:600px) {
+  .forge-craft-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media(max-width:700px) {
+  .pack-grid { grid-template-columns:1fr; }
+  .po-cards  { gap:.6rem; }
+  .po-card-wrap { width:110px;height:162px; }
+}

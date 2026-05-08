@@ -1,0 +1,283 @@
+.leaderboard {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Header */
+.lb-header { text-align: center; }
+
+.lb-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffd700;
+  margin-bottom: 0.5rem;
+}
+
+.lb-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin-bottom: 0.4rem;
+}
+
+.lb-subtitle {
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.85rem;
+}
+
+/* Tabs */
+.period-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 0.5rem;
+}
+
+.period-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: none;
+  color: #666;
+  padding: 10px 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.period-tab:hover { color: #aaa; background: rgba(255,255,255,0.04); }
+
+.period-tab.active {
+  background: rgba(230,57,70,0.18);
+  color: #fff;
+  border: 1px solid rgba(230,57,70,0.35);
+}
+
+.tab-icon  { font-size: 1rem; }
+.tab-label { font-size: 0.85rem; }
+
+.tab-count {
+  background: rgba(230,57,70,0.2);
+  color: #e63946;
+  font-size: 0.65rem;
+  font-family: 'Orbitron', sans-serif;
+  padding: 1px 6px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Board card */
+.lb-board {
+  padding: 0;
+  overflow: hidden;
+}
+
+.lb-board-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.lbh-period {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.85rem;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+.refresh-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #555;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.refresh-btn:hover { color: #aaa; border-color: rgba(255,255,255,0.2); transform: rotate(180deg); }
+
+.lb-state {
+  padding: 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: #777;
+}
+
+.loading-spinner {
+  width: 36px; height: 36px;
+  border: 3px solid rgba(230,57,70,0.15);
+  border-top-color: #e63946;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.lb-empty-icon { font-size: 2.5rem; }
+.lb-empty-hint { font-size: 0.85rem; color: #555; }
+
+/* Podium */
+.podium {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 2rem 2rem 0;
+  overflow: hidden;
+}
+
+.podium-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  max-width: 180px;
+  position: relative;
+}
+
+.podium-medal { font-size: 1.8rem; margin-bottom: 4px; }
+.podium-name  { font-size: 0.8rem; font-weight: 700; color: #ddd; margin-bottom: 2px; text-align: center; word-break: break-word; }
+.podium-score { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 700; color: #e63946; margin-bottom: 8px; }
+
+.podium-base {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 0 0;
+}
+
+.p-1 .podium-base { background: linear-gradient(180deg, rgba(255,215,0,0.2), rgba(255,215,0,0.05)); border: 1px solid rgba(255,215,0,0.25); }
+.p-2 .podium-base { background: linear-gradient(180deg, rgba(192,192,192,0.15), rgba(192,192,192,0.03)); border: 1px solid rgba(192,192,192,0.2); }
+.p-3 .podium-base { background: linear-gradient(180deg, rgba(205,127,50,0.15), rgba(205,127,50,0.03)); border: 1px solid rgba(205,127,50,0.2); }
+
+.podium-rank {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: rgba(255,255,255,0.3);
+  padding-top: 8px;
+  align-self: flex-start;
+  padding-left: 10px;
+}
+
+/* Table */
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.lb-table th {
+  padding: 0.85rem 1.25rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #555;
+  background: rgba(255,255,255,0.015);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.lb-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 0.95rem;
+  color: #bbb;
+  vertical-align: middle;
+}
+
+.lb-table tr:last-child td { border-bottom: none; }
+.lb-table tr:hover td { background: rgba(255,255,255,0.025); }
+
+.lb-table tr.top-1 td { background: rgba(255,215,0,0.04); }
+.lb-table tr.top-2 td { background: rgba(192,192,192,0.03); }
+.lb-table tr.top-3 td { background: rgba(205,127,50,0.03); }
+
+.rank-cell  { width: 64px; }
+.medal-icon { font-size: 1.3rem; }
+.rank-num   { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; color: #555; }
+
+.name-cell  { }
+.player-name { font-weight: 700; color: #eee; }
+
+.score-cell {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: #e63946;
+}
+
+.acc-cell { min-width: 120px; }
+
+.acc-bar-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acc-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 50px;
+}
+
+.acc-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
+.acc-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 32px;
+  text-align: right;
+}
+
+.diff-all { color: #555; font-size: 0.8rem; }
+.no-data  { color: #444; }
+.date-cell { font-size: 0.8rem; color: #444; }
+
+.lb-actions {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 640px) {
+  .podium  { display: none; }
+  .period-tab .tab-label { display: none; }
+  .lb-table th:nth-child(5),
+  .lb-table td:nth-child(5),
+  .lb-table th:nth-child(6),
+  .lb-table td:nth-child(6) { display: none; }
+}

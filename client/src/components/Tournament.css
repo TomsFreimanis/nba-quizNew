@@ -1,0 +1,144 @@
+.tournament {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: 'Orbitron', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tourn-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tourn-back {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.6);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px; font-weight: 700;
+  padding: 8px 14px; cursor: pointer;
+  transition: all 0.2s; flex-shrink: 0;
+}
+.tourn-back:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+.tourn-eyebrow { font-size: 10px; color: #FFD700; letter-spacing: 2px; margin-bottom: 4px; }
+.tourn-title   { font-size: 28px; font-weight: 900; color: #fff; margin: 0 0 4px; letter-spacing: 1px; }
+.tourn-week    { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 1px; }
+
+.tourn-balance { text-align: right; }
+.tb-label  { display: block; font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-bottom: 4px; }
+.tb-coins  { font-size: 15px; font-weight: 800; color: #FFD700; }
+
+/* Prize pool */
+.tourn-prizes {
+  display: flex;
+  gap: 12px;
+}
+
+.tp-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid;
+  border-radius: 12px;
+  padding: 16px 8px;
+}
+
+.tp-icon  { font-size: 24px; }
+.tp-rank  { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; }
+.tp-coins { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; }
+
+/* Status block */
+.tourn-status {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tourn-status.entered   { border-color: rgba(76,201,119,0.3); background: rgba(76,201,119,0.04); }
+.tourn-status.not-entered { border-color: rgba(255,215,0,0.2); }
+
+.ts-label    { font-size: 10px; color: rgba(255,255,255,0.4); letter-spacing: 1px; margin-bottom: 6px; }
+.ts-rank     { font-size: 32px; font-weight: 900; }
+.ts-winning  { font-size: 12px; color: #4cc977; font-weight: 700; letter-spacing: 0.5px; margin-top: 4px; }
+.ts-entry-fee { font-size: 26px; font-weight: 900; color: #FFD700; margin-bottom: 6px; }
+.ts-desc     { font-size: 11px; color: rgba(255,255,255,0.45); font-family: 'Rajdhani', sans-serif; max-width: 260px; }
+
+.tourn-play-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #4cc977, #00b4d8);
+  border: none; border-radius: 10px;
+  color: #000; font-family: 'Orbitron', sans-serif;
+  font-size: 12px; font-weight: 900; letter-spacing: 0.5px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(76,201,119,0.3);
+}
+.tourn-play-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(76,201,119,0.45); }
+
+.tourn-enter-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border: none; border-radius: 10px;
+  color: #000; font-family: 'Orbitron', sans-serif;
+  font-size: 12px; font-weight: 900; letter-spacing: 0.5px;
+  cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(255,215,0,0.3);
+}
+.tourn-enter-btn:hover:not(.disabled) { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(255,215,0,0.45); }
+.tourn-enter-btn.disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* Leaderboard */
+.tourn-board {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 24px;
+}
+
+.tb-title {
+  font-size: 12px; font-weight: 800; letter-spacing: 1px;
+  color: rgba(255,255,255,0.5); margin-bottom: 16px;
+}
+
+.tourn-loading, .tourn-error, .tourn-empty {
+  text-align: center; padding: 20px;
+  font-family: 'Rajdhani', sans-serif; font-size: 14px; color: rgba(255,255,255,0.35);
+}
+.tourn-error { color: #ff6b6b; }
+
+.tourn-list { display: flex; flex-direction: column; gap: 6px; }
+
+.tl-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 14px; border-radius: 10px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid transparent;
+  transition: background 0.2s;
+}
+.tl-row.tl-prize { background: rgba(255,215,0,0.04); border-color: rgba(255,215,0,0.1); }
+.tl-row.tl-me    { background: rgba(155,93,229,0.08); border-color: rgba(155,93,229,0.25); }
+
+.tl-rank  { font-size: 16px; min-width: 28px; text-align: center; }
+.tl-name  { flex: 1; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.8); }
+.tl-score { font-size: 15px; font-weight: 800; color: #fff; }
+.tl-prize { font-size: 12px; font-weight: 800; min-width: 80px; text-align: right; }
+
+@media (max-width: 500px) {
+  .tourn-prizes { gap: 8px; }
+  .tp-coins { font-size: 11px; }
+  .tourn-status { flex-direction: column; align-items: flex-start; }
+}

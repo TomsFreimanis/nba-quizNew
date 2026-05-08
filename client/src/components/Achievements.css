@@ -1,0 +1,82 @@
+.achievements-page {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.ach-eyebrow   { font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#FFD700;margin-bottom:.4rem; }
+.ach-title     { font-family:'Orbitron',sans-serif;font-size:2.2rem;font-weight:900;margin-bottom:.3rem; }
+.ach-subtitle  { color:#888;font-size:.95rem; }
+
+.ach-header    { display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem; }
+
+.ach-header-stats { display:flex;align-items:center;gap:.75rem;flex-wrap:wrap; }
+
+.ahs-item      { display:flex;flex-direction:column;align-items:center;gap:3px; }
+.ahs-val       { font-family:'Orbitron',sans-serif;font-size:1.1rem;font-weight:900;color:#fff; }
+.ahs-lbl       { font-size:.65rem;color:#555;text-transform:uppercase;letter-spacing:1px; }
+.ahs-div       { width:1px;height:28px;background:rgba(255,255,255,.07); }
+
+.ahs-overall   { display:flex;flex-direction:column;gap:4px; }
+.ahs-bar-wrap  { display:flex;align-items:center;gap:.5rem; }
+.ahs-overall-bar { width:120px;height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden; }
+.ahs-overall-fill { height:100%;background:linear-gradient(90deg,#FFD700,#FFA500);border-radius:3px;transition:width .5s ease; }
+.ahs-pct       { font-family:'Orbitron',sans-serif;font-size:.7rem;font-weight:700;color:#FFD700; }
+
+/* Tabs */
+.ach-tabs { display:flex;gap:.4rem;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:.5rem; }
+.ach-tab  { background:transparent;border:none;color:#666;padding:7px 14px;border-radius:8px 8px 0 0;cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.5px;transition:all .2s;display:flex;align-items:center;gap:.4rem; }
+.ach-tab:hover  { color:#aaa;background:rgba(255,255,255,.04); }
+.ach-tab.active { color:#fff;background:rgba(255,215,0,.1);border-bottom:2px solid #FFD700; }
+
+.ach-tab-count { background:rgba(255,255,255,.08);border-radius:10px;padding:1px 6px;font-size:.65rem;font-family:'Orbitron',sans-serif; }
+
+/* Section */
+.ach-section-title { font-family:'Orbitron',sans-serif;font-size:.85rem;letter-spacing:1px;color:#888;margin-bottom:1rem; }
+
+.ach-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1rem;
+}
+
+/* Achievement Card */
+.ach-card {
+  display:flex;align-items:center;gap:.85rem;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:1rem 1.1rem;
+  position:relative;overflow:hidden;
+  transition:transform .15s,border-color .2s;
+}
+.ach-card:hover { transform:translateX(3px);border-color:rgba(255,255,255,.12); }
+
+.ach-tier-bar { position:absolute;top:0;left:0;bottom:0;width:3px; }
+
+.ach-unlocked { border-color:rgba(var(--tc),.3); }
+.ach-locked   { opacity:.75; }
+
+.ach-icon-wrap { position:relative;flex-shrink:0; }
+.ach-icon      { font-size:1.8rem;display:block;filter:drop-shadow(0 0 6px rgba(255,255,255,.15)); }
+.ach-locked .ach-icon { filter:grayscale(0.6) brightness(0.6); }
+.ach-check     { position:absolute;bottom:-2px;right:-4px;font-size:.75rem;background:#4cc977;color:#000;width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900; }
+
+.ach-body      { flex:1;min-width:0; }
+.ach-name      { font-family:'Orbitron',sans-serif;font-size:.8rem;font-weight:700;color:#ddd;margin-bottom:3px;letter-spacing:.3px; }
+.ach-desc      { font-size:.8rem;color:#666;line-height:1.35;margin-bottom:.5rem; }
+
+.ach-progress  { display:flex;flex-direction:column;gap:4px; }
+.ach-bar       { height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden; }
+.ach-fill      { height:100%;border-radius:2px;transition:width .6s ease; }
+.ach-prog-label { font-size:.7rem;color:#555;font-family:'Orbitron',sans-serif; }
+.ach-done-text  { font-weight:700; }
+
+.ach-reward    { display:flex;flex-direction:column;align-items:center;gap:2px;flex-shrink:0; }
+.ach-reward-icon { font-size:1rem; }
+.ach-reward-val  { font-family:'Orbitron',sans-serif;font-size:.75rem;font-weight:700; }
+
+.ach-actions { display:flex;justify-content:center;padding-bottom:1.5rem; }
+
+@media(max-width:580px) { .ach-grid { grid-template-columns:1fr; } }

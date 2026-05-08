@@ -1,0 +1,334 @@
+/* ── Overlay ─────────────────────────────────────────────────────────────── */
+.po-overlay {
+  position: fixed; inset: 0;
+  background: rgba(4, 4, 14, 0.96);
+  z-index: 600;
+  display: flex; align-items: center; justify-content: center;
+  animation: po-fadein .35s ease;
+}
+@keyframes po-fadein { from { opacity:0; } to { opacity:1; } }
+
+/* Legendary flash */
+.po-legend-flash {
+  position: fixed; inset: 0; z-index: 610; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(255,215,0,0.45) 0%, transparent 70%);
+  animation: po-flash .8s ease forwards;
+}
+@keyframes po-flash {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── Confetti ── */
+.conf-wrap {
+  position: fixed; inset: 0; overflow: hidden;
+  pointer-events: none; z-index: 620;
+}
+.conf-piece {
+  position: absolute; top: -20px;
+  animation: conf-fall linear forwards;
+}
+@keyframes conf-fall {
+  0%   { transform: translateY(-20px) rotate(0deg);   opacity: 1; }
+  80%  { opacity: 1; }
+  100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── Modal ────────────────────────────────────────────────────────────────── */
+.po-modal {
+  width: 90vw; max-width: 800px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.5rem;
+  animation: po-slideup .4s cubic-bezier(.3,0,.2,1);
+}
+@keyframes po-slideup {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+/* ── Header ── */
+.po-header {
+  display: flex; align-items: center; gap: .75rem;
+  font-family: 'Orbitron', sans-serif;
+}
+.po-pack-icon { font-size: 2rem; }
+.po-pack-name { font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: 1px; }
+.po-dots { display: flex; gap: 6px; margin-left: .5rem; }
+.po-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.15); transition: background .3s;
+}
+.po-dot.active { background: #fff; box-shadow: 0 0 6px #fff; }
+.po-dot.done   { background: #4cc977; }
+
+/* ── Reel section ── */
+.po-reel-section {
+  display: flex; flex-direction: column; align-items: center; gap: .85rem;
+}
+
+.po-viewport {
+  position: relative;
+  height: 196px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.5), 0 8px 40px rgba(0,0,0,.7);
+}
+
+/* Center glow column */
+.po-center-glow {
+  position: absolute; top: 0; bottom: 0;
+  left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,.04);
+  border-left:  1px solid rgba(255,255,255,.08);
+  border-right: 1px solid rgba(255,255,255,.08);
+  z-index: 5; pointer-events: none;
+}
+
+/* Arrows */
+.po-arrow {
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  color: #FFD700; font-size: 1rem; z-index: 10;
+  filter: drop-shadow(0 0 6px rgba(255,215,0,.8));
+  pointer-events: none;
+}
+.po-arrow-t { top:    2px; }
+.po-arrow-b { bottom: 2px; }
+
+/* Edge vignettes */
+.po-vignette {
+  position: absolute; top: 0; bottom: 0; width: 28%;
+  z-index: 6; pointer-events: none;
+}
+.po-vignette-l { left:  0; background: linear-gradient(to right, rgba(4,4,14,1) 0%, transparent 100%); }
+.po-vignette-r { right: 0; background: linear-gradient(to left,  rgba(4,4,14,1) 0%, transparent 100%); }
+
+/* Track */
+.po-track {
+  display: flex; gap: 10px;
+  position: absolute; top: 50%; transform: translateY(-50%);
+  padding: 0 0 0 0;
+  will-change: transform;
+}
+
+/* ── Status line ── */
+.po-status {
+  height: 28px; display: flex; align-items: center; justify-content: center;
+}
+.po-status-spin {
+  display: flex; align-items: center; gap: .5rem;
+  font-family: 'Rajdhani', sans-serif; font-size: .9rem;
+  font-weight: 700; letter-spacing: 1px; color: #666;
+}
+.po-spinner {
+  width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.15);
+  border-top-color: #9B5DE5;
+  animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.po-status-land {
+  font-family: 'Orbitron', sans-serif; font-size: .85rem; font-weight: 900;
+  letter-spacing: 1px;
+  animation: po-land-pulse .4s ease;
+}
+@keyframes po-land-pulse {
+  0%   { transform: scale(.8); opacity: 0; }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Skip btn */
+.po-skip-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,.12);
+  color: #555; padding: 6px 18px; border-radius: 8px; cursor: pointer;
+  font-family: 'Rajdhani', sans-serif; font-size: .82rem; font-weight: 700;
+  transition: all .2s;
+}
+.po-skip-btn:hover { border-color: #777; color: #aaa; }
+
+/* ── Previously revealed strip ── */
+.po-strip { display: flex; flex-direction: column; gap: .5rem; align-items: center; }
+.po-strip-label {
+  font-size: .62rem; text-transform: uppercase; letter-spacing: 2px;
+  color: #444; font-family: 'Orbitron', sans-serif; font-weight: 700;
+}
+.po-strip-row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+
+/* ── Best badge in header ── */
+.po-best-badge {
+  font-family: 'Orbitron', sans-serif; font-size: .65rem; font-weight: 900;
+  letter-spacing: 1px; text-transform: uppercase;
+  border: 1px solid currentColor; border-radius: 20px;
+  padding: 2px 10px; opacity: .85;
+}
+
+/* ── Flip section ── */
+.po-flip-section {
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+  animation: po-fadein .45s ease;
+}
+
+.po-flip-title {
+  font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900;
+  color: #fff; letter-spacing: 2px; text-align: center;
+}
+
+.po-flip-grid {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  max-width: 760px;
+}
+
+/* ── Flip card ── */
+.flip-card {
+  perspective: 700px;
+  width: 145px; height: 205px; flex-shrink: 0;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-back,
+.flip-front {
+  position: absolute; inset: 0;
+  border-radius: 10px; overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Card back design */
+.flip-back {
+  background: linear-gradient(135deg, #1a0830 0%, #0d1a3a 50%, #1a0830 100%);
+  border: 1.5px solid rgba(155,93,229,.45);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+  box-shadow: inset 0 0 40px rgba(155,93,229,.08);
+}
+
+.flip-back-logo {
+  font-size: 2.6rem;
+  filter: drop-shadow(0 0 10px rgba(155,93,229,.6));
+}
+
+.flip-back-text {
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-size: .55rem; letter-spacing: 4px;
+  color: rgba(155,93,229,.55); text-transform: uppercase;
+}
+
+/* Front face — rotated so it shows after flip */
+.flip-front {
+  transform: rotateY(180deg);
+}
+
+/* ── Done state ── */
+.po-rar-summary { display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center; }
+
+.po-collect-btn { font-size: 1rem; padding: 14px 40px; letter-spacing: 2px; margin-top: .25rem; }
+
+/* ═══════════════════════════════════════════════════
+   REEL CARD
+   ═══════════════════════════════════════════════════ */
+.rc {
+  position: relative; flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1.5px solid var(--rc);
+  background: linear-gradient(160deg, var(--c1), var(--c2));
+  cursor: default;
+  transition: box-shadow .3s;
+}
+
+/* Sizes */
+.rc-reel { width: 128px; height: 182px; }
+.rc-mini { width: 72px;  height: 102px; }
+.rc-done { width: 145px; height: 205px; }
+
+/* Rarity-specific glow when highlighted */
+.rc-glow { box-shadow: 0 0 0 2px var(--rc), 0 0 24px var(--rc), 0 0 50px rgba(0,0,0,.5); }
+.rc-glow.rc-legendary {
+  animation: rc-legendary-pulse 1s ease infinite alternate;
+}
+@keyframes rc-legendary-pulse {
+  from { box-shadow: 0 0 0 2px #FFD700, 0 0 20px rgba(255,215,0,.7), 0 0 50px rgba(0,0,0,.5); }
+  to   { box-shadow: 0 0 0 2px #FFD700, 0 0 40px rgba(255,215,0,1.0), 0 0 80px rgba(255,120,0,.3); }
+}
+
+.rc-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, rgba(255,255,255,.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.rc-img-wrap { position: relative; height: 65%; overflow: hidden; }
+.rc-photo {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top center;
+  display: block;
+}
+.rc-no-photo {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.3);
+}
+.rc-num {
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  color: rgba(255,255,255,.85);
+}
+.rc-reel .rc-num { font-size: 2rem; }
+.rc-mini .rc-num { font-size: 1.1rem; }
+.rc-done .rc-num { font-size: 2.4rem; }
+
+.rc-img-fade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,.75) 100%);
+  pointer-events: none;
+}
+
+.rc-foot {
+  padding: .3rem .45rem;
+  background: rgba(0,0,0,.65);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.rc-foot-name {
+  font-family: 'Orbitron', sans-serif; font-weight: 700;
+  color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.rc-reel .rc-foot-name { font-size: .54rem; }
+.rc-mini .rc-foot-name { font-size: .42rem; }
+.rc-done .rc-foot-name { font-size: .62rem; }
+
+.rc-foot-rar {
+  font-weight: 700; text-transform: uppercase;
+}
+.rc-reel .rc-foot-rar { font-size: .44rem; }
+.rc-mini .rc-foot-rar { font-size: .38rem; }
+.rc-done .rc-foot-rar { font-size: .52rem; }
+
+/* Legendary aura */
+.rc-legendary-aura {
+  position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(135deg,
+    rgba(255,100,0,.06) 0%, rgba(255,215,0,.12) 30%,
+    rgba(100,255,200,.06) 60%, rgba(100,150,255,.08) 100%);
+  background-size: 200% 200%;
+  animation: rc-aura 3s ease-in-out infinite;
+}
+@keyframes rc-aura {
+  0%,100% { background-position: 0% 0%; }
+  50%      { background-position: 100% 100%; }
+}
+
+@media (max-width: 700px) {
+  .po-modal { gap: 1rem; }
+  .rc-reel { width: 100px; height: 142px; }
+}
