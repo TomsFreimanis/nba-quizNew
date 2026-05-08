@@ -1,6 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import './Results.css';
 
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
 function getRank(pct) {
   if (pct >= 90) return { label: 'NBA Legend',    icon: '🏆', color: '#ffd700' };
   if (pct >= 75) return { label: 'All-Star',       icon: '⭐', color: '#e63946' };
@@ -47,7 +49,7 @@ export default function Results({ result, playerName, onRestart, onLeaderboard }
     if (!nameInput.trim()) return;
     setSubmitting(true);
     try {
-      const res = await fetch('/api/score', {
+      const res = await fetch(`${API}/api/score`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: nameInput.trim(), score, correct, total, difficulty: config.difficulty }),

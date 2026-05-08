@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './Quiz.css';
 
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
 const QUESTION_TIME = { easy: 22, medium: 18, hard: 14 };
 
 const COIN_BASE = { easy: 50, medium: 100, hard: 150 };
@@ -49,7 +51,7 @@ export default function Quiz({ config, inventory, onFinish, onUsePowerUp }) {
   useEffect(() => {
     const { difficulty, count, category, isDaily } = config;
     if (isDaily) {
-      fetch('/api/daily-challenge')
+      fetch(`${API}/api/daily-challenge`)
         .then(r => r.json())
         .then(data => { setQuestions(data.questions); setLoading(false); setTimeLeft(QUESTION_TIME.medium); })
         .catch(() => { setError('Server unreachable — is the backend running?'); setLoading(false); });
@@ -60,7 +62,7 @@ export default function Quiz({ config, inventory, onFinish, onUsePowerUp }) {
     try { seenIds = JSON.parse(localStorage.getItem('nba_seen_ids') || '[]'); } catch {}
     const params = new URLSearchParams({ count, difficulty, category });
     if (seenIds.length) params.set('exclude', seenIds.join(','));
-    fetch(`/api/questions?${params}`)
+    fetch(`${API}/api/questions?${params}`)
       .then(r => r.json())
       .then(data => { setQuestions(data); setLoading(false); if (data[0]) setTimeLeft(QUESTION_TIME[data[0].difficulty] || 18); })
       .catch(() => { setError('Server unreachable — is the backend running?'); setLoading(false); });

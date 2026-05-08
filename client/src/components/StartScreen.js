@@ -69,8 +69,9 @@ export default function StartScreen({
   const blitzBest = loadBlitzBest();
 
   useEffect(() => {
-    fetch('/api/categories').then(r=>r.json()).then(d=>setCategories(['all',...d])).catch(()=>setCategories(['all']));
-    fetch('/api/daily-challenge').then(r=>r.json()).then(setDailyInfo).catch(()=>{});
+    const _api = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/,'');
+    fetch(`${_api}/api/categories`).then(r=>r.json()).then(d=>setCategories(['all',...d])).catch(()=>setCategories(['all']));
+    fetch(`${_api}/api/daily-challenge`).then(r=>r.json()).then(setDailyInfo).catch(()=>{});
   }, []);
 
   const alreadyPlayedDaily = dailyInfo && localStorage.getItem(`daily_${dailyInfo.date}`) === '1';

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import './Leaderboard.css';
 
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
 const PERIODS = [
   { key: 'alltime', label: 'All Time',  icon: '∞'  },
   { key: 'monthly', label: 'Monthly',   icon: '📆' },
@@ -30,7 +32,7 @@ export default function Leaderboard({ onBack }) {
   const fetchBoard = useCallback(async (p) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/leaderboard?period=${p}&limit=20`);
+      const res = await fetch(`${API}/api/leaderboard?period=${p}&limit=20`);
       const data = await res.json();
       setEntries(data);
     } catch {
@@ -42,7 +44,7 @@ export default function Leaderboard({ onBack }) {
   // Pre-fetch counts for badges
   useEffect(() => {
     Promise.all(PERIODS.map(p =>
-      fetch(`/api/leaderboard?period=${p.key}&limit=100`)
+      fetch(`${API}/api/leaderboard?period=${p.key}&limit=100`)
         .then(r => r.json())
         .then(d => [p.key, d.length])
         .catch(() => [p.key, 0])

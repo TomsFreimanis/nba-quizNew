@@ -6,6 +6,14 @@
   font-family: 'Orbitron', sans-serif;
 }
 
+.duel-screen-question {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-top: 8px;
+  min-height: unset;
+}
+
 /* ── Idle / Hero ── */
 .duel-hero {
   text-align: center;

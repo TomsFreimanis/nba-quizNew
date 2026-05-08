@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Shop.css';
 
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
+
 const TIER_CONFIG = {
   basic:     { label: '⚡ Basic Power-Ups',     desc: 'Affordable boosts for every game',           color: '#4cc977' },
   premium:   { label: '💎 Premium Power-Ups',   desc: 'Powerful abilities for serious players',     color: '#00b4d8' },
@@ -20,11 +22,11 @@ export default function Shop({ coins, inventory, ownedBanners = [], onPurchase, 
   const [section, setSection] = useState('powerups'); // 'powerups' | 'banners'
 
   useEffect(() => {
-    fetch('/api/shop')
+    fetch(`${API}/api/shop`)
       .then(r => r.json())
       .then(setItems)
       .catch(() => setItems([]));
-    fetch('/api/banners')
+    fetch(`${API}/api/banners`)
       .then(r => r.json())
       .then(setBanners)
       .catch(() => setBanners([]));

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Blitz.css';
 
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 const BLITZ_TIME   = 60;
 const REVEAL_DELAY = 700;
 const COIN_BASE    = { easy: 25, medium: 55, hard: 110 };
@@ -119,7 +120,7 @@ export default function Blitz({ onFinish, onBack }) {
 
   // Fetch questions on mount
   useEffect(() => {
-    fetch('/api/questions?count=60&difficulty=all')
+    fetch(`${API}/api/questions?count=60&difficulty=all`)
       .then(r => r.json())
       .then(data => {
         questionsRef.current = data;

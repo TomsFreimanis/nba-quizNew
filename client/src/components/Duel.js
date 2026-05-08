@@ -224,7 +224,7 @@ export default function Duel({ username, myMmr = 1000, onCoinsEarned, onMmrChang
     const timerPct   = (timeLeft / 15) * 100;
     const timerColor = timeLeft > 8 ? '#4cc977' : timeLeft > 4 ? '#ffa500' : '#e63946';
     return (
-      <div className="duel-screen">
+      <div className="duel-screen duel-screen-question">
         <div className="duel-scorebar">
           <div className="dsb-player dsb-me">
             <span className="dsb-avatar" style={{background:myRank.bg}}>{username.charAt(0).toUpperCase()}</span>
