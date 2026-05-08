@@ -336,7 +336,7 @@ export default function App() {
   const handleTournamentScore = useCallback(async (score) => {
     if (!authUser || !tournamentEntered) return;
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/tournament/score`, {
+      const res = await fetch(`${(process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/,'')}/api/tournament/score`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: authUser, score }),

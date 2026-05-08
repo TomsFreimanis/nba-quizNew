@@ -3,7 +3,7 @@ import { getRank } from '../data/ranks';
 import RankBadge from './RankBadge';
 import './RankedLeaderboard.css';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 export default function RankedLeaderboard({ myUsername, onBack, onDuel }) {
   const [players, setPlayers] = useState([]);

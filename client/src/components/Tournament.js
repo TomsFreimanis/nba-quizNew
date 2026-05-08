@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Tournament.css';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 const PRIZES = [5000, 2000, 1000];
 const PRIZE_COLORS = ['#FFD700', '#C0C0C0', '#CD7F32'];
 const PRIZE_ICONS  = ['🥇', '🥈', '🥉'];

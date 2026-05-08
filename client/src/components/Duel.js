@@ -4,7 +4,7 @@ import { getRank, getRankProgress } from '../data/ranks';
 import RankBadge from './RankBadge';
 import './Duel.css';
 
-const SOCKET_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const SOCKET_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 export default function Duel({ username, myMmr = 1000, onCoinsEarned, onMmrChange, onBack, onViewLeaderboard }) {
   const [phase,           setPhase]           = useState('idle');

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGoogleLogin } from '@react-oauth/google';
 import './LoginScreen.css';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 const HAS_GOOGLE = !!process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 // Only rendered (and hook only runs) when HAS_GOOGLE is true

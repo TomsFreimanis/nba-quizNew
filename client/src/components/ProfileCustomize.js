@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getLevelProgress } from '../data/quests';
 import './ProfileCustomize.css';
 
-const API = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
 const TIER_ORDER = ['basic', 'premium', 'legendary'];
 const TIER_LABELS = { basic: 'Basic', premium: 'Premium', legendary: 'Legendary' };
