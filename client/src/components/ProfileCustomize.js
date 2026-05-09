@@ -36,7 +36,8 @@ export default function ProfileCustomize({
       <div className="pc-preview-wrap"
         style={{ background: previewBanner?.image ? '#000' : (previewBanner?.gradient || 'linear-gradient(135deg,#1a0a2e,#2d1b69)') }}>
         {previewBanner?.image && (
-          <img className="pc-preview-img" src={previewBanner.image} alt="" />
+          <img className="pc-preview-img" src={previewBanner.image} alt=""
+            onError={e => { e.target.style.display = 'none'; }} />
         )}
         <div className="pc-preview-overlay" />
         <div className="pc-profile-card">
@@ -105,10 +106,11 @@ export default function ProfileCustomize({
                     onMouseEnter={() => setPreview(b)}
                     onMouseLeave={() => setPreview(null)}
                   >
-                    {b.image
-                      ? <img className="pcb-image" src={b.image} alt={b.name} />
-                      : <div className="pcb-gradient" style={{ background: b.gradient }} />
-                    }
+                    <div className="pcb-gradient" style={{ background: b.gradient }} />
+                    {b.image && (
+                      <img className="pcb-image" src={b.image} alt={b.name}
+                        onError={e => { e.target.style.display = 'none'; }} />
+                    )}
                     {b.tier === 'legendary' && <div className="pcb-legendary-sheen" />}
                     {b.tier === 'special' && <div className="pcb-special-sheen" />}
                     <div className="pcb-name">{b.name}</div>
