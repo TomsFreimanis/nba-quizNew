@@ -4,9 +4,9 @@ import './ProfileCustomize.css';
 
 const API = (process.env.REACT_APP_API_URL || 'http://localhost:5000').replace(/\/$/, '');
 
-const TIER_ORDER = ['basic', 'premium', 'legendary'];
-const TIER_LABELS = { basic: 'Basic', premium: 'Premium', legendary: 'Legendary' };
-const TIER_COLORS = { basic: '#4cc977', premium: '#00B4D8', legendary: '#FFD700' };
+const TIER_ORDER  = ['basic', 'premium', 'legendary', 'special'];
+const TIER_LABELS = { basic: 'Basic', premium: 'Premium', legendary: 'Legendary', special: '★ Special Edition' };
+const TIER_COLORS = { basic: '#4cc977', premium: '#00B4D8', legendary: '#FFD700', special: '#FF6B35' };
 
 export default function ProfileCustomize({
   username, coins, xp = 0, collection = [], ownedBanners = [],
@@ -34,7 +34,10 @@ export default function ProfileCustomize({
     <div className="pc-root">
       {/* Profile card preview */}
       <div className="pc-preview-wrap"
-        style={{ background: previewBanner ? previewBanner.gradient : 'linear-gradient(135deg,#1a0a2e,#2d1b69)' }}>
+        style={{ background: previewBanner?.image ? '#000' : (previewBanner?.gradient || 'linear-gradient(135deg,#1a0a2e,#2d1b69)') }}>
+        {previewBanner?.image && (
+          <img className="pc-preview-img" src={previewBanner.image} alt="" />
+        )}
         <div className="pc-preview-overlay" />
         <div className="pc-profile-card">
           <div className="pc-avatar">
@@ -97,13 +100,17 @@ export default function ProfileCustomize({
                 return (
                   <div
                     key={b.id}
-                    className={`pc-banner-card ${equipped ? 'pc-equipped' : ''} ${!owned ? 'pc-locked' : ''}`}
+                    className={`pc-banner-card ${equipped ? 'pc-equipped' : ''} ${!owned ? 'pc-locked' : ''} ${b.tier === 'special' ? 'pcb-special' : ''}`}
                     onClick={() => { if (owned) { setPreview(b); onEquip(b); } }}
                     onMouseEnter={() => setPreview(b)}
                     onMouseLeave={() => setPreview(null)}
                   >
-                    <div className="pcb-gradient" style={{ background: b.gradient }} />
+                    {b.image
+                      ? <img className="pcb-image" src={b.image} alt={b.name} />
+                      : <div className="pcb-gradient" style={{ background: b.gradient }} />
+                    }
                     {b.tier === 'legendary' && <div className="pcb-legendary-sheen" />}
+                    {b.tier === 'special' && <div className="pcb-special-sheen" />}
                     <div className="pcb-name">{b.name}</div>
                     <div className="pcb-desc">{b.description}</div>
                     {!owned && (

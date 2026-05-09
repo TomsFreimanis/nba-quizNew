@@ -110,7 +110,10 @@ export default function StartScreen({
       {/* ── Profile Dashboard ─────────────────────────────── */}
       <div className="profile-dashboard card"
         style={equippedBanner ? { '--banner-bg': equippedBanner.gradient } : {}}>
-        {equippedBanner && <div className="pd-banner-bg" style={{ background: equippedBanner.gradient }} />}
+        {equippedBanner?.image
+          ? <img className="pd-banner-bg pd-banner-img" src={equippedBanner.image} alt="" />
+          : equippedBanner && <div className="pd-banner-bg" style={{ background: equippedBanner.gradient }} />
+        }
         <div className="pd-top">
           <div className="pd-left">
             <div className="pd-avatar">{playerName ? playerName.charAt(0).toUpperCase() : '?'}</div>

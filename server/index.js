@@ -161,6 +161,10 @@ const BANNERS = [
   { id: 'mvp_season',    name: 'MVP Season',       price: 7500,  tier: 'legendary', gradient: 'linear-gradient(135deg,#0d0d0d 0%,#FFD700 20%,#FF6B00 50%,#FFD700 80%,#0d0d0d 100%)',      description: 'You are the most valuable player' },
   { id: 'championship',  name: 'Championship',     price: 10000, tier: 'legendary', gradient: 'linear-gradient(135deg,#010a14 0%,#0066cc 15%,#FFD700 35%,#ffffff 50%,#FFD700 65%,#0066cc 85%,#010a14 100%)', description: 'Champions banner in the rafters' },
   { id: 'goat',          name: 'G.O.A.T.',         price: 15000, tier: 'legendary', gradient: 'linear-gradient(135deg,#0d0d0d 0%,#ce1141 18%,#9B5DE5 36%,#FFD700 54%,#00B4D8 72%,#4cc977 90%,#0d0d0d 100%)', description: 'Greatest of all time — undisputed' },
+  // ── Special image banners ──────────────────────────────────────────────────────
+  { id: 'lebron_finals',  name: 'LeBron — Finals',      price: 25000, tier: 'special', image: '/banners/lebron-finals.jpg',  gradient: 'linear-gradient(135deg,#1a0000,#8B0000)', description: 'The King raises his hands in glory' },
+  { id: 'curry_warriors', name: 'Curry — Warriors',     price: 25000, tier: 'special', image: '/banners/curry-warriors.jpg', gradient: 'linear-gradient(135deg,#00275e,#1D428A)', description: 'Splash Brother in flight' },
+  { id: 'lebron_games',   name: 'LeBron — Legacy',      price: 30000, tier: 'special', image: '/banners/lebron-games.jpg',   gradient: 'linear-gradient(135deg,#1a0030,#552583)', description: 'A legacy written in purple and gold' },
 ];
 
 // ── Daily challenge ────────────────────────────────────────────────────────────

@@ -229,12 +229,53 @@
   transition: opacity 0.3s;
 }
 
+/* Image banner thumbnail */
+.pcb-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px;
+}
+
+/* Preview strip image */
+.pc-preview-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Special tier card */
+.pcb-special {
+  border-color: rgba(255,107,53,0.5) !important;
+}
+.pcb-special.pc-equipped {
+  border-color: #FF6B35 !important;
+  box-shadow: 0 0 24px rgba(255,107,53,0.45) !important;
+}
+
 .pcb-legendary-sheen {
   position: absolute;
   inset: 0;
   background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
   animation: pcb-sheen 2.5s linear infinite;
   pointer-events: none;
+  z-index: 1;
+}
+
+/* Special sheen — orange/gold flash */
+.pcb-special-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, rgba(255,140,0,0.18) 50%, transparent 65%);
+  animation: pcb-sheen 2s linear infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
 @keyframes pcb-sheen {
