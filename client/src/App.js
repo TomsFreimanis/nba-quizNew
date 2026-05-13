@@ -13,8 +13,11 @@ import LoginScreen        from './components/LoginScreen';
 import ProfileCustomize   from './components/ProfileCustomize';
 import Duel               from './components/Duel';
 import Tournament         from './components/Tournament';
+import SpinWheel          from './components/SpinWheel';
+import Survival           from './components/Survival';
 import { ACHIEVEMENTS, ACH_MAP } from './data/achievements';
 import { CARD_MAP, CARDS }        from './data/cards';
+import { getWeeklyChallenges }    from './data/quests';
 import './App.css';
 
 // ── Persistence ────────────────────────────────────────────────────────────────
@@ -104,7 +107,7 @@ export default function App() {
     const saved = load('nba_daily_progress', null);
     return (saved && saved.date === todayStr()) ? saved : freshDailyProgress(todayStr());
   });
-  // Auth
+  // Authjj
   const [authToken,   setAuthToken]   = useState(() => localStorage.getItem('nba_auth_token') || '');
   const [authUser,    setAuthUser]    = useState(() => localStorage.getItem('nba_auth_user')  || '');
   // MMR / Ranked
@@ -124,6 +127,12 @@ export default function App() {
     return saved.date === today ? saved.count : 0;
   });
 
+  const [showSpin,        setShowSpin]        = useState(false);
+  const [weeklyProgress,  setWeeklyProgress]  = useState(() => {
+    const wk = getWeekKey();
+    const saved = load('nba_weekly_progress', {});
+    return saved._week === wk ? saved : { _week: wk };
+  });
   const toastCounter = useRef(0);
 
   // ── Daily login bonus ────────────────────────────────────────────────────────
@@ -158,6 +167,7 @@ export default function App() {
   useEffect(() => save('nba_owned_banners',   ownedBanners),   [ownedBanners]);
   useEffect(() => save('nba_equipped_banner', equippedBanner), [equippedBanner]);
   useEffect(() => save('nba_mmr',             myMmr),          [myMmr]);
+  useEffect(() => save('nba_weekly_progress', weeklyProgress),  [weeklyProgress]);
   useEffect(() => {
     if (authToken) localStorage.setItem('nba_auth_token', authToken);
     else localStorage.removeItem('nba_auth_token');
@@ -243,6 +253,12 @@ export default function App() {
       coinsEarned:  prev.coinsEarned  + earned + perfectBonus,
       perfectGames: prev.perfectGames + (isPerfect ? 1 : 0),
     }));
+    setWeeklyProgress(p => ({
+      ...p,
+      correctTotal:  (p.correctTotal  || 0) + result.correct,
+      maxStreak:     Math.max(p.maxStreak || 0, result.bestStreak || 0),
+      perfectGames:  (p.perfectGames  || 0) + (isPerfect ? 1 : 0),
+    }));
     setQuizResult({ ...result, perfectBonus });
     setScreen('results');
     if (result.config?.isTournament) handleTournamentScore(result.score);
@@ -292,6 +308,11 @@ export default function App() {
       coinsEarned:  prev.coinsEarned  + coinsEarned,
       blitz10:      prev.blitz10      + (c >= 10 ? 1 : 0),
     }));
+    setWeeklyProgress(p => ({
+      ...p,
+      correctTotal: (p.correctTotal || 0) + c,
+      blitz15:      (p.blitz15      || 0) + (c >= 15 ? 1 : 0),
+    }));
     setScreen('start');
   }, [collection, achState, triggerAchievementCheck]);
 
@@ -305,7 +326,30 @@ export default function App() {
   }, [playerName]);
 
   const handleMmrChange = useCallback((newMmr) => {
-    setMyMmr(newMmr);
+    setMyMmr(prev => {
+      if (newMmr > prev) {
+        setWeeklyProgress(p => ({ ...p, duelWins: (p.duelWins || 0) + 1 }));
+      }
+      return newMmr;
+    });
+  }, []);
+
+  const handleSpinClaim = useCallback((prize) => {
+    if (prize.coins > 0) setCoins(c => c + prize.coins);
+    if (prize.xpBoost)   setXp(x => x + 500);
+    setShowSpin(false);
+  }, []);
+
+  const handleWeeklyProgress = useCallback((key, value = 1) => {
+    setWeeklyProgress(prev => ({ ...prev, [key]: (prev[key] || 0) + value }));
+  }, []);
+
+  const handleClaimWeekly = useCallback((challengeId, reward) => {
+    setCoins(c => c + reward);
+    setWeeklyProgress(prev => ({
+      ...prev,
+      claimed: [...(prev.claimed || []), challengeId],
+    }));
   }, []);
 
   const handleLogout = useCallback(() => {
@@ -380,6 +424,7 @@ export default function App() {
       return newStats;
     });
     setDailyProgress(prev => ({ ...prev, packsOpened: prev.packsOpened + 1 }));
+    setWeeklyProgress(p => ({ ...p, packsOpened: (p.packsOpened || 0) + 1 }));
   }, [collection, achState, triggerAchievementCheck]);
 
   // ── Quest claiming ───────────────────────────────────────────────────────────
@@ -463,7 +508,7 @@ export default function App() {
       </header>
 
       <main className="app-main">
-        {screen === 'start'        && <StartScreen coins={coins} stats={stats} achState={achState} collection={collection} playerName={playerName} xp={xp} dailyProgress={dailyProgress} dust={dust} equippedBanner={equippedBanner} rewardedToday={rewardedToday} myMmr={myMmr} onChangeName={setPlayerName} onStart={handleStart} onLeaderboard={() => nav('leaderboard')} onShop={() => nav('shop')} onCollection={() => nav('collection')} onAchievements={() => nav('achievements')} onMystery={() => nav('mystery')} onBlitz={() => nav('blitz')} onClaimQuest={handleClaimQuest} onProfile={() => nav('profile')} onDuel={() => nav('duel')} onTournament={() => nav('tournament')} onRewardedClaim={handleRewardedClaim} onRankedLeaderboard={() => nav('ranked-leaderboard')} />}
+        {screen === 'start'        && <StartScreen coins={coins} stats={stats} achState={achState} collection={collection} playerName={playerName} xp={xp} dailyProgress={dailyProgress} dust={dust} equippedBanner={equippedBanner} rewardedToday={rewardedToday} myMmr={myMmr} weeklyProgress={weeklyProgress} onChangeName={setPlayerName} onStart={handleStart} onLeaderboard={() => nav('leaderboard')} onShop={() => nav('shop')} onCollection={() => nav('collection')} onAchievements={() => nav('achievements')} onMystery={() => nav('mystery')} onBlitz={() => nav('blitz')} onClaimQuest={handleClaimQuest} onClaimWeekly={handleClaimWeekly} onProfile={() => nav('profile')} onDuel={() => nav('duel')} onTournament={() => nav('tournament')} onSurvival={() => nav('survival')} onSpin={() => setShowSpin(true)} onRewardedClaim={handleRewardedClaim} onRankedLeaderboard={() => nav('ranked-leaderboard')} />}
         {screen === 'quiz'         && <Quiz config={quizConfig} inventory={inventory} onFinish={handleFinish} onUsePowerUp={handleUsePowerUp} />}
         {screen === 'mystery'      && <MysteryPlayer onFinish={handleMysteryFinish} onBack={() => nav('start')} />}
         {screen === 'blitz'        && <Blitz onFinish={handleBlitzFinish} onBack={() => nav('start')} />}
@@ -476,6 +521,11 @@ export default function App() {
         {screen === 'duel'         && <Duel username={authUser || playerName} myMmr={myMmr} onCoinsEarned={(c) => setCoins(prev => prev + c)} onMmrChange={handleMmrChange} onBack={() => nav('start')} onViewLeaderboard={() => nav('ranked-leaderboard')} />}
         {screen === 'ranked-leaderboard' && <RankedLeaderboard myUsername={authUser || playerName} onBack={() => nav('start')} onDuel={() => nav('duel')} />}
         {screen === 'tournament'   && <Tournament username={authUser || playerName} coins={coins} isEntered={tournamentEntered} onEnter={handleTournamentEnter} onBack={() => nav('start')} onStart={() => { nav('quiz'); setQuizConfig({ difficulty:'hard', count:10, category:'all', isDaily:false, coinMultiplier:1, isTournament:true }); }} />}
+        {screen === 'survival'     && <Survival onBack={() => nav('start')} onCoinsEarned={(c, score) => {
+          setCoins(p => p + c);
+          setXp(x => x + (score || 0) * 8);
+          if (score !== undefined) setWeeklyProgress(p => ({ ...p, survivalBest: Math.max(p.survivalBest || 0, score) }));
+        }} />}
       </main>
 
       <footer className="app-footer">
@@ -501,6 +551,7 @@ export default function App() {
         </button>
       </nav>
 
+      {showSpin && <SpinWheel onClose={() => setShowSpin(false)} onClaim={handleSpinClaim} />}
       <AchToast toasts={toasts} onDismiss={dismissToast} />
       {loginBonus && <LoginBonusModal bonus={loginBonus} onClaim={() => setLoginBonus(null)} />}
     </div>

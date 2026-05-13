@@ -15,6 +15,35 @@ export const QUEST_POOL = [
   { id: 'blitz_10',       label: 'Get 10+ correct in Blitz',         icon: '⚡', target: 1,   reward: 200, trackKey: 'blitz10'      },
 ];
 
+export const WEEKLY_CHALLENGES = [
+  { id: 'wk_duel_3',      label: 'Win 3 Ranked Duels',                icon: '⚔️',  target: 3,   reward: 500,  trackKey: 'duelWins'     },
+  { id: 'wk_duel_5',      label: 'Win 5 Ranked Duels',                icon: '🏆',  target: 5,   reward: 1000, trackKey: 'duelWins'     },
+  { id: 'wk_survival_10', label: 'Survive 10+ questions in Survival', icon: '❤️‍🔥', target: 10,  reward: 600,  trackKey: 'survivalBest' },
+  { id: 'wk_blitz_15',    label: 'Get 15+ correct in Blitz',          icon: '⚡',  target: 15,  reward: 500,  trackKey: 'blitz15'      },
+  { id: 'wk_correct_100', label: 'Answer 100 questions correctly',    icon: '📚',  target: 100, reward: 750,  trackKey: 'correctTotal' },
+  { id: 'wk_streak_10',   label: 'Get a 10-answer streak',            icon: '🔥',  target: 10,  reward: 800,  trackKey: 'maxStreak'    },
+  { id: 'wk_packs_3',     label: 'Open 3 card packs',                 icon: '📦',  target: 3,   reward: 400,  trackKey: 'packsOpened'  },
+  { id: 'wk_perfect_3',   label: 'Finish 3 perfect games',            icon: '⭐',  target: 3,   reward: 1200, trackKey: 'perfectGames' },
+];
+
+export function getWeeklyKey() {
+  const d = new Date();
+  const jan1 = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+  return `${d.getFullYear()}-W${week}`;
+}
+
+export function getWeeklyChallenges() {
+  const wkNum = Math.floor(new Date().getTime() / (7 * 86400000));
+  const rand   = seededRand(wkNum);
+  const pool   = [...WEEKLY_CHALLENGES];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, 4); // 4 weekly challenges
+}
+
 function seededRand(seed) {
   let s = seed;
   return () => {

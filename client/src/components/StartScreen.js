@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ACHIEVEMENTS }                              from '../data/achievements';
 import { CARDS, CARD_MAP, RARITY_COLORS, NBA_PHOTO_URL } from '../data/cards';
-import { getDailyQuests, getLevelProgress }          from '../data/quests';
+import { getDailyQuests, getWeeklyChallenges, getLevelProgress } from '../data/quests';
 import { getRank, getRankProgress }                  from '../data/ranks';
 import RankBadge                                     from './RankBadge';
 import './StartScreen.css';
@@ -52,10 +52,10 @@ function RewardedAdButton({ rewardedToday, onClaim }) {
 export default function StartScreen({
   coins, stats, achState, collection, playerName,
   xp = 0, dailyProgress, dust = 0, equippedBanner, rewardedToday = 0,
-  myMmr = 1000,
+  myMmr = 1000, weeklyProgress = {},
   onChangeName, onStart, onLeaderboard, onShop,
-  onCollection, onAchievements, onMystery, onBlitz, onClaimQuest, onProfile,
-  onDuel, onTournament, onRewardedClaim, onRankedLeaderboard,
+  onCollection, onAchievements, onMystery, onBlitz, onClaimQuest, onClaimWeekly, onProfile,
+  onDuel, onTournament, onSurvival, onSpin, onRewardedClaim, onRankedLeaderboard,
 }) {
   const [difficulty,  setDifficulty]  = useState('all');
   const [count,       setCount]       = useState(10);
@@ -100,6 +100,12 @@ export default function StartScreen({
   const today       = new Date().toISOString().split('T')[0];
   const dailyQuests = getDailyQuests(today);
   const dp          = dailyProgress || {};
+
+  const weeklyChallenges = getWeeklyChallenges();
+  const wp = weeklyProgress || {};
+  const spinAvailable = (() => {
+    try { return localStorage.getItem('nba_spin_date') !== today; } catch { return true; }
+  })();
 
   const myRank     = getRank(myMmr);
   const myProgress = getRankProgress(myMmr);
@@ -291,6 +297,20 @@ export default function StartScreen({
           </div>
         </div>
 
+        {/* Survival */}
+        {onSurvival && (
+          <div className="mode-card mode-survival" onClick={onSurvival}>
+            <div className="mc-content">
+              <div className="mc-icon">❤️‍🔥</div>
+              <div className="mc-body">
+                <div className="mc-title">Survival</div>
+                <div className="mc-desc">3 lives · Endless · Streak ×3 multiplier</div>
+              </div>
+              <button className="mc-btn mc-btn-survival" onClick={e=>{e.stopPropagation();onSurvival();}}>Play →</button>
+            </div>
+          </div>
+        )}
+
         {/* 1v1 Duel */}
         {onDuel && (
           <div className="mode-card mode-duel" onClick={onDuel}>
@@ -370,6 +390,13 @@ export default function StartScreen({
 
       {/* ── Quick Actions ──────────────────────────────────── */}
       <div className="quick-actions">
+        {onSpin && (
+          <button className={`qa-btn qa-spin ${spinAvailable ? 'qa-spin-ready' : ''}`} onClick={onSpin}>
+            <span className="qa-icon">🎡</span>
+            <span className="qa-label">{spinAvailable ? 'SPIN!' : 'Spin'}</span>
+            {spinAvailable && <span className="qa-spin-dot" />}
+          </button>
+        )}
         <button className="qa-btn" onClick={onShop}>
           <span className="qa-icon">🛒</span><span className="qa-label">Shop</span>
         </button>
@@ -445,6 +472,48 @@ export default function StartScreen({
                     </button>
                   ) : (
                     <span className="dq-reward-val">🪙 {quest.reward}</span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ── Weekly Challenges ──────────────────────────────── */}
+      <div className="weekly-challenges card">
+        <div className="wc-header">
+          <span className="wc-title">⚡ Weekly Challenges</span>
+          <span className="wc-reset">Resets Monday</span>
+        </div>
+        <div className="wc-list">
+          {weeklyChallenges.map(ch => {
+            const raw = ch.trackKey === 'survivalBest'
+              ? (wp.survivalBest || 0)
+              : (wp[ch.trackKey] || 0);
+            const progress = Math.min(raw, ch.target);
+            const pct = Math.min((progress / ch.target) * 100, 100);
+            const complete = progress >= ch.target;
+            const claimed  = (wp.claimed || []).includes(ch.id);
+            return (
+              <div key={ch.id} className={`wc-item ${complete ? 'wc-complete' : ''} ${claimed ? 'wc-claimed' : ''}`}>
+                <span className="wc-icon">{ch.icon}</span>
+                <div className="wc-body">
+                  <div className="wc-label">{ch.label}</div>
+                  <div className="wc-bar-wrap">
+                    <div className="wc-bar-fill" style={{ width: `${pct}%` }} />
+                  </div>
+                  <div className="wc-progress-text">{progress} / {ch.target}</div>
+                </div>
+                <div className="wc-reward">
+                  {claimed ? (
+                    <span className="wc-claimed-tag">✓ Claimed</span>
+                  ) : complete ? (
+                    <button className="wc-claim-btn" onClick={() => onClaimWeekly && onClaimWeekly(ch.id, ch.reward)}>
+                      🪙 {ch.reward}
+                    </button>
+                  ) : (
+                    <span className="wc-reward-val">🪙 {ch.reward}</span>
                   )}
                 </div>
               </div>

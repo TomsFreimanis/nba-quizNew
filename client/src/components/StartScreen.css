@@ -723,3 +723,112 @@
 }
 
 .cursor-pointer { cursor: pointer; }
+
+/* ── Survival mode card ──────────────────────────────── */
+.mode-survival { border-color: rgba(230,57,70,0.25); background: rgba(230,57,70,0.03); }
+.mode-survival:hover { border-color: rgba(230,57,70,0.55); box-shadow: 0 4px 24px rgba(230,57,70,0.12); }
+.mode-survival .mc-icon { filter: drop-shadow(0 0 10px rgba(230,57,70,0.7)); }
+.mc-btn-survival {
+  background: linear-gradient(135deg,#e63946,#c82333) !important; color:#fff !important;
+  border:none !important; box-shadow:0 2px 12px rgba(230,57,70,0.4);
+}
+
+/* ── Spin button ─────────────────────────────────────── */
+.qa-spin { position: relative; }
+.qa-spin-ready {
+  border-color: rgba(155,93,229,0.45) !important;
+  background: rgba(155,93,229,0.08) !important;
+  color: #c994ff !important;
+  animation: spin-glow 1.8s ease infinite;
+}
+.qa-spin-ready:hover { border-color: rgba(155,93,229,0.8) !important; color: #fff !important; }
+.qa-spin-dot {
+  position: absolute; top: 6px; right: 6px;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #9B5DE5;
+  box-shadow: 0 0 6px #9B5DE5;
+  animation: spin-dot-pulse 1.2s ease infinite alternate;
+}
+@keyframes spin-glow {
+  0%,100% { box-shadow: none; }
+  50%      { box-shadow: 0 0 14px rgba(155,93,229,0.4); }
+}
+@keyframes spin-dot-pulse {
+  from { opacity:0.6; transform: scale(0.8); }
+  to   { opacity:1;   transform: scale(1.2); }
+}
+
+/* ── Quick actions — flex wrap for variable count ─────── */
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.qa-btn { flex: 1; min-width: 72px; }
+
+/* ── Weekly Challenges ───────────────────────────────── */
+.weekly-challenges { padding: 1.25rem 1.5rem; }
+
+.wc-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.wc-title {
+  font-family: 'Orbitron', sans-serif; font-weight: 900;
+  font-size: .85rem; letter-spacing: 1px; color: #fff;
+}
+.wc-reset { font-size: .65rem; color: #444; letter-spacing: .5px; }
+
+.wc-list { display: flex; flex-direction: column; gap: .75rem; }
+
+.wc-item {
+  display: flex; align-items: center; gap: .85rem;
+  padding: .7rem .9rem;
+  background: rgba(255,255,255,.03);
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 10px;
+  transition: border-color .2s;
+}
+.wc-item.wc-complete:not(.wc-claimed) {
+  border-color: rgba(255,215,0,.3);
+  background: rgba(255,215,0,.04);
+}
+.wc-item.wc-claimed { opacity: .5; }
+
+.wc-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+.wc-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.wc-label { font-size: .8rem; color: #ccc; font-weight: 600; }
+
+.wc-bar-wrap { height: 5px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
+.wc-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FFD700, #ffa500);
+  border-radius: 3px;
+  transition: width .4s ease;
+}
+.wc-item.wc-complete .wc-bar-fill { background: #FFD700; }
+
+.wc-progress-text { font-size: .62rem; color: #555; font-family: 'Orbitron', sans-serif; }
+
+.wc-reward { flex-shrink: 0; text-align: right; }
+.wc-reward-val { font-family: 'Orbitron', sans-serif; font-size: .7rem; font-weight: 700; color: #666; }
+
+.wc-claim-btn {
+  background: linear-gradient(135deg, #FFD700, #ffa500);
+  border: none; border-radius: 8px;
+  padding: 5px 12px; cursor: pointer;
+  font-family: 'Orbitron', sans-serif; font-size: .7rem;
+  font-weight: 900; color: #000;
+  animation: dq-pulse 1.2s ease-in-out infinite alternate;
+  transition: transform .15s;
+}
+.wc-claim-btn:hover { transform: scale(1.05); }
+.wc-claimed-tag { font-size: .7rem; color: #FFD700; font-weight: 700; }
+
+@media (max-width: 480px) {
+  .weekly-challenges { padding: 0.85rem 0.85rem; }
+  .wc-label { font-size: 0.74rem; }
+  .quick-actions { gap: 0.4rem; }
+  .qa-btn { min-width: 60px; padding: 0.7rem 0.2rem; border-radius: 10px; }
+}

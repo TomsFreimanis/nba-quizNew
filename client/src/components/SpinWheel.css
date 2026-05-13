@@ -1,0 +1,166 @@
+.sw-overlay {
+  position: fixed; inset: 0; z-index: 800;
+  background: rgba(0,0,0,0.88);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
+  animation: sw-fadein 0.3s ease;
+}
+@keyframes sw-fadein { from { opacity:0 } to { opacity:1 } }
+
+.sw-modal {
+  background: linear-gradient(160deg, rgba(20,15,40,0.99), rgba(8,8,20,0.99));
+  border: 1px solid rgba(155,93,229,0.3);
+  border-radius: 24px;
+  padding: 28px 24px 24px;
+  max-width: 380px; width: 92%;
+  text-align: center;
+  box-shadow: 0 0 80px rgba(155,93,229,0.2), 0 30px 80px rgba(0,0,0,0.7);
+  animation: sw-slidein 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes sw-slidein {
+  from { transform: scale(0.8) translateY(20px); opacity:0 }
+  to   { transform: scale(1)   translateY(0);    opacity:1 }
+}
+
+.sw-eyebrow  { font-size: 10px; letter-spacing: 2px; color: #FFD700; font-family:'Orbitron',sans-serif; margin-bottom: 4px; }
+.sw-title    { font-size: 22px; font-weight: 900; color: #fff; font-family:'Orbitron',sans-serif; margin: 0 0 4px; }
+.sw-sub      { font-size: 12px; color: rgba(255,255,255,0.35); font-family:'Rajdhani',sans-serif; margin-bottom: 20px; }
+
+/* ── Arena ── */
+.sw-arena { position: relative; display: flex; justify-content: center; margin-bottom: 20px; }
+
+.sw-pointer {
+  position: absolute; top: -6px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 22px; color: #fff; z-index: 10;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.8));
+  text-shadow: 0 0 12px #FFD700;
+}
+
+.sw-wheel-wrap {
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.08), 0 0 40px rgba(155,93,229,0.3), 0 8px 32px rgba(0,0,0,0.6);
+  overflow: hidden;
+  position: relative;
+}
+
+.sw-wheel {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  position: relative;
+  background: conic-gradient(
+    #e63946  0deg   45deg,
+    #ffa500  45deg  90deg,
+    #9B5DE5  90deg  135deg,
+    #4cc977  135deg 180deg,
+    #FFD700  180deg 225deg,
+    #00b4d8  225deg 270deg,
+    #FF6B35  270deg 315deg,
+    #c994ff  315deg 360deg
+  );
+  will-change: transform;
+}
+
+.sw-segment {
+  position: absolute; inset: 0;
+}
+
+.sw-seg-content {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform-origin: 0 0;
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
+  pointer-events: none;
+}
+
+.sw-seg-icon  { font-size: 14px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.8)); }
+.sw-seg-label { font-family:'Orbitron',sans-serif; font-size: 9px; font-weight: 900; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); line-height: 1; }
+.sw-seg-sub   { font-family:'Rajdhani',sans-serif; font-size: 7px; font-weight: 700; color: rgba(255,255,255,0.8); text-shadow: 0 1px 2px rgba(0,0,0,0.9); line-height: 1; }
+
+.sw-center-cap {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1a0a2e, #2d1b69);
+  border: 3px solid rgba(255,255,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; z-index: 5;
+  box-shadow: 0 0 16px rgba(0,0,0,0.8);
+}
+
+/* ── Buttons ── */
+.sw-spin-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #9B5DE5, #7B3DC5);
+  border: none; border-radius: 14px;
+  color: #fff; font-family:'Orbitron',sans-serif;
+  font-size: 16px; font-weight: 900; letter-spacing: 2px;
+  cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
+  box-shadow: 0 4px 24px rgba(155,93,229,0.5);
+}
+.sw-spin-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(155,93,229,0.7); }
+.sw-spin-btn:disabled, .sw-spin-btn.used { opacity: 0.4; cursor: not-allowed; transform: none; }
+.sw-spin-btn.spinning { background: linear-gradient(135deg, #555, #333); box-shadow: none; }
+
+.sw-close-btn {
+  background: none; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; color: rgba(255,255,255,0.4);
+  font-family:'Orbitron',sans-serif; font-size: 11px; font-weight: 700;
+  padding: 8px 20px; cursor: pointer; transition: all 0.2s;
+}
+.sw-close-btn:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
+
+/* ── Prize popup ── */
+.sw-prize-overlay {
+  position: fixed; inset: 0; z-index: 900;
+  display: flex; align-items: center; justify-content: center;
+  animation: sw-fadein 0.3s ease;
+}
+
+.sw-prize-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(20,15,40,0.99), rgba(8,8,20,0.99));
+  border: 2px solid var(--prize-color);
+  border-radius: 24px;
+  padding: 40px 48px;
+  text-align: center;
+  box-shadow: 0 0 60px color-mix(in srgb, var(--prize-color) 35%, transparent),
+              0 30px 80px rgba(0,0,0,0.8);
+  overflow: hidden;
+  animation: sw-slidein 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.sw-prize-shimmer {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+  animation: sw-sheen 2s linear infinite;
+}
+@keyframes sw-sheen { 0%{transform:translateX(-100%)} 100%{transform:translateX(200%)} }
+
+.sw-prize-icon  { font-size: 64px; margin-bottom: 12px; animation: sw-bounce 0.6s ease; }
+@keyframes sw-bounce { 0%{transform:scale(0)} 60%{transform:scale(1.2)} 100%{transform:scale(1)} }
+.sw-prize-label { font-size: 11px; letter-spacing: 2px; color: rgba(255,255,255,0.5); font-family:'Orbitron',sans-serif; margin-bottom: 8px; }
+.sw-prize-value { font-size: 28px; font-weight: 900; font-family:'Orbitron',sans-serif; margin-bottom: 6px; }
+.sw-prize-desc  { font-size: 13px; color: rgba(255,255,255,0.45); font-family:'Rajdhani',sans-serif; margin-bottom: 24px; }
+
+.sw-claim-btn {
+  padding: 12px 40px;
+  background: var(--prize-color);
+  border: none; border-radius: 12px;
+  color: #fff; font-family:'Orbitron',sans-serif;
+  font-size: 14px; font-weight: 900; letter-spacing: 1px;
+  cursor: pointer; transition: all 0.2s;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--prize-color) 50%, transparent);
+}
+.sw-claim-btn:hover { transform: translateY(-2px); filter: brightness(1.15); }
+
+@media (max-width: 480px) {
+  .sw-wheel-wrap { width: 210px; height: 210px; }
+  .sw-prize-card { padding: 28px 28px; }
+  .sw-prize-icon { font-size: 48px; }
+  .sw-prize-value { font-size: 22px; }
+}
